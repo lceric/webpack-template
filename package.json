@@ -1,0 +1,15 @@
+{
+  "name": "webpack-template",
+  "version": "1.0.0",
+  "description": "webpack template",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "webpack",
+    "tempalte"
+  ],
+  "author": "Eric Lee",
+  "license": "ISC"
+}
