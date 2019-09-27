@@ -22,6 +22,14 @@ module.exports = {
         use: ['style-loader', 'css-loader']
       },
       {
+        test: /\.txt$/,
+        use: 'raw-loader'
+      },
+      {
+        test: /\.(png|jpe?g|gif)$/i,
+        use: 'file-loader'
+      },
+      {
         include: path.resolve('node_modules', 'lodash'),
         sideEffects: false
       }

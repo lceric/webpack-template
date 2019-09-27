@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import './style/index.css';
+import './pages/createImage/index.js';
 
-console.log('nihsaosace')
 /* hot reload */
 if (module.hot) {
   module.hot.accept()
