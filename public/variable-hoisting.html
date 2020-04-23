@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>变量提升</title>
+  </head>
+  <body>
+    <script>
+      // console.log(a)
+      // a = 1
+      // console.log(a)
+      // if (true) {
+      //   console.log(a) // OUTPUT： function a() {}
+      //   a = 2
+      //   console.log(a)
+      //   function a() {}
+      //   console.log(a)
+      // }
+      // console.log(a)
+      if(true) {
+        var a = 2
+      }
+      function s() {
+        var b = 3
+      }
+      console.log(a)
+      console.log(b)
+    </script>
+  </body>
+</html>
