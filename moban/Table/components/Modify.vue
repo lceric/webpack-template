@@ -1,7 +1,7 @@
 <template>
   <el-dialog v-bind="$attrs" v-on="$listeners">
     <el-form
-      ref="modifyForm"
+      ref="modifyFormRef"
       class="xhx-form"
       :model="modifyForm"
       :rules="modifyFormRules"
@@ -36,9 +36,17 @@ export default {
   watch: {
     row: {
       handler(v) {
-        Object.assign(this.modifyItem, v)
+        if (v) {
+          let temp = {};
+          for (let k in this.modifyForm) {
+            temp[k] = v[k];
+          }
+          this.modifyForm = Object.assign({}, this.modifyForm, temp);
+          return;
+        }
+        this.resetModifyForm();
       },
-      immediate: true,
+      immediate: true
     },
   },
   methods: {
@@ -63,6 +71,14 @@ export default {
         this.$message.error(error.message)
       }
     },
+    initData() {
+      Object.assign(this.modifyForm, this.$options.data());
+    },
+    /** 重置表单 */
+    resetModifyForm() {
+      this.initData();
+      this.$refs.modifyFormRef && this.$refs.modifyFormRef.resetFields();
+    }
   },
 }
 </script>

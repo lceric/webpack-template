@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>prototype constructor</title>
+</head>
+<body>
+  <script>
+    function A() {
+      return this // 默认return this
+    }
+    // 直接在A上挂属性，实例化后在constructor上可找到
+    // 不能被insA直接引用到
+    A.aa = 'nihao'
+    A.afun = function() {}
+
+    A.name = '_A' // read-only
+    Object.defineProperty(A, 'name', { writable: true }) // 可以改写writable属性
+    A.name = '_A' // 可以改写了
+    
+    A.prototype.bfun = function() {} // 原型上加属性方法，实例化后在insA.__proto__上
+    
+    var insA = new A();
+    insA.dfun = function() {} // 实例上加属性方法
+
+    // insA.__proto__ 指向 A.prototype
+    insA.__proto__.cfun = function() {} // 在实例的__proto__上加属性方法，直接加到A.prototype上
+    
+    // insA.prototype.efun = function() {} // new实例化后没有prototype，只有__proto__
+    
+    console.log(A.constructor) // A的构造函数function [Native code]
+    
+    console.log(A) // A序列化
+    console.log(insA) // A实例{dfun: f}
+    
+    console.log(insA.__proto__.constructor) // 指的就是A
+    
+    console.log(A.name) // A
+    console.log(insA.name) // undefined, A实例化后是没有name属性的，所以undefined
+    console.log(insA.constructor.name) // 相当于insA.__proto__constructor.name
+    
+    console.log(A.prototype)
+    console.log(insA.__proto__) // 指向A的prototype { bfun: f(), cfun: fun, constructor: f A() }
+    
+    console.log(insA.afun) // undefined
+
+    class B {
+      static name='_B'
+      constructor() {
+        return this.name
+      }
+
+    }
+    var insB = new B()
+    console.log(B, B.prototype, B.name, insB, insB.constructor.name)
+  </script>
+</body>
+</html>
