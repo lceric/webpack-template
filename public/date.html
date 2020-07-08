@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Date</title>
+</head>
+<body>
+  <script>
+    /**
+    * 返回下一天
+    * @param date [Date String] 日期，可以被new Date()初始化的合法参数
+    * @return Date
+    */
+    function nextDate(date) {
+      let start = new Date(date)
+      let oneDay = 24 * 60 * 60 * 1000
+      let next = start.valueOf() + oneDay
+      return new Date(next)
+    }
+    /**
+    * 格式化
+    */
+    function formate(date) {
+      let year = date.getFullYear()
+      let month = date.getMonth() + 1
+      let day = date.getDate()
+      return `${year}-${month}-${day}`
+    }
+
+    // 测试
+    console.log(formate(nextDate('2020-05-06'))) // 2020-5-7
+  </script>
+</body>
+</html>
