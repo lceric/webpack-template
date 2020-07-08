@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>快速排序</title>
+  </head>
+  <body>
+    <script>
+      // 1. middle为中，假设第一个为中间值，作为判断依据
+      // 2. left存放较之小的
+      // 3. right存放较之大的
+      function quickSort(list = []) {
+        if (list.length < 1) {
+          return list
+        }
+        let middle = list[0],
+          left = [],
+          right = [],
+          i = list.length
+
+        while (i > 1) {
+          let curr = list[--i]
+          console.log(list, curr, middle)
+          if (curr <= middle) {
+            left.push(curr)
+            continue
+          }
+          right.push(curr)
+        }
+        return [...quickSort(left), middle, ...quickSort(right)]
+      }
+
+      let arr = [2, 4, 9, 3, 1, 5, 7]
+      console.log(quickSort(arr))
+      
+      </script>
+      1. A到达必胜态，就需要取完后剩余最后一个，B拿走最后一个 
+      2. 倒推，B如果拿最后一个，A就必须拿完后剩下3个创造必胜态
+      这时候，前7个A开始拿，不管B拿几个，A都要能够取走第7个
+      1. A拿3个, 剩下7个，B可以拿1,2,3个
+      2. B-1, 2, 3，剩余-6, 5, 4
+      3. A只需要拿走n个后，剩余3个即可到达必胜态，这时候可以拿3, 2, 1，剩下3个
+      A先取的必胜策略：A先取3个，然后B随便取(只能在1, 2, 3个里面选)，然后A根据B取的，把剩余的恢复到3个
+  </body>
+</html>
