@@ -4,7 +4,7 @@ import './style/index.css';
 // import './pages/study/index.js';
 // import './pages/study/for.js';
 // import './pages/qrcode/index'
-import './pages/utils/date'
+// import './pages/utils/date'
 
 // var ua = navigator.userAgent.toLowerCase()
 // var $div = document.createElement('div')
@@ -17,6 +17,7 @@ import './pages/utils/date'
 // $div.innerHTML = tmpHtml
 // document.querySelector('body').appendChild($div)
 
+import "./pages/svg/index";
 
 /* hot reload */
 if (module.hot) {

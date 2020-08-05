@@ -1,0 +1,38 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SVG学习</title>
+  </head>
+  <body>
+    <!-- <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 20 20">
+      <circle
+        cx="100"
+        cy="50"
+        r="40"
+        stroke="black"
+        stroke-width="2"
+        fill="orange"
+      />
+    </svg> -->
+
+    cx、cy是坐标； r是半径； stroke是轨迹颜色，stroke-width是轨迹宽度，
+    fill是填充色。 可以设置viewBox属性来改变svg的坐标系。
+    
+    <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
+    </svg>
+    
+    <script>
+      const svgroot = document.querySelector('svg');
+      function draw(parent) {
+        const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+        circle.setAttribute('cx', 0);
+        circle.setAttribute('cy', 0);
+        circle.setAttribute('r', 20);
+        circle.setAttribute('fill', '#c00');
+        parent.appendChild(circle);
+      }
+      draw(svgroot);
+    </script>
+  </body>
+</html>
