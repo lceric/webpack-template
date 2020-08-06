@@ -1,0 +1,87 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>webgl</title>
+  </head>
+  <body>
+    <canvas></canvas>
+    <script>
+      const canvas = document.querySelector('canvas')
+      const gl = canvas.getContext('webgl')
+
+      // 着色器
+      // 顶点映射RGB值
+      const vertex = `
+        attribute vec2 position;
+        varying vec3 color;
+
+        void main() {
+          gl_PointSize = 1.0;
+          color = vec3(0.5 + position * 0.5, 0.0);
+          gl_Position = vec4(position * 0.5, 1.0, 1.0);
+        }
+      `
+
+      // 像素点的颜色是红色， gl_FragColor是片元着色器内置变量，标识当前像素点颜色，RGBA
+      //  gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0);
+      const fragment = `
+        precision mediump float;
+        varying vec3 color;
+
+        void main() {
+          gl_FragColor = vec4(color, 1.0);
+        }
+      `
+
+      // 顶点着色器
+      const vertexShader = gl.createShader(gl.VERTEX_SHADER)
+      gl.shaderSource(vertexShader, vertex)
+      gl.compileShader(vertexShader)
+
+      // 片元着色器
+      const fragmentShader = gl.createShader(gl.FRAGMENT_SHADER)
+      gl.shaderSource(fragmentShader, fragment)
+      gl.compileShader(fragmentShader)
+
+      // 创建WebGLProgram对象
+      const program = gl.createProgram()
+      gl.attachShader(program, vertexShader)
+      gl.attachShader(program, fragmentShader)
+
+      // 将这个WebGLProgram对象链接到WebGL上下文对象上
+      gl.linkProgram(program)
+
+      // 启用这个WebGLProgram对象
+      gl.useProgram(program)
+
+      // 定义三角形三个顶点
+      // Float32Array类型化数组
+      const points = new Float32Array([
+        -1, -1,
+        0, 1,
+        1, -1,
+        1, -1,
+        1, 1,
+        0, 1
+      ])
+
+      // 定义好的数据写入WebGL的缓冲区
+      const bufferId = gl.createBuffer();
+      gl.bindBuffer(gl.ARRAY_BUFFER, bufferId);
+      gl.bufferData(gl.ARRAY_BUFFER, points, gl.STATIC_DRAW);
+
+      // 将缓冲区读取到GPU
+      const vPosition = gl.getAttribLocation(program, 'position'); // 获取顶点着色器中的position变量
+      gl.vertexAttribPointer(vPosition, 2, gl.FLOAT, false, 0, 0); // 给变量设置长度和类型
+      gl.enableVertexAttribArray(vPosition); // 激活这个变量
+
+      // 执行着色器程序完成绘制
+      gl.clear(gl.COLOR_BUFFER_BIT); // 将当前画布清除
+      // gl.drawArrays(gl.TRIANGLES, 0, points.length / 2); // 三角形作为图元绘制，顶点偏移量为0， 顶点数量
+      // gl.drawArrays(gl.LINE_LOOP, 0, points.length / 2); // 线段作为图元绘制空心三角形，顶点偏移量为0， 顶点数量
+      gl.drawArrays(gl.TRIANGLES, 0, points.length / 2);
+
+    </script>
+  </body>
+</html>
