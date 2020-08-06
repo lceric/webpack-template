@@ -17,7 +17,8 @@ import './style/index.css';
 // $div.innerHTML = tmpHtml
 // document.querySelector('body').appendChild($div)
 
-import "./pages/svg/index";
+// import "./pages/svg/index";
+// import "./pages/pixijs/ball";
 
 /* hot reload */
 if (module.hot) {
